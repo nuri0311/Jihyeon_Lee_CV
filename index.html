@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Jihyeon Lee, Ph.D. student at KAIST Graduate School of Culture Technology. Research in HCI, VR/AR, 3D Interaction, and Spatial UI/UX.">
+  <title>Jihyeon Lee | KAIST GSCT</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18212b;
+      --muted: #65717d;
+      --soft: #f5f2eb;
+      --paper: #fffdf8;
+      --line: #ded7ca;
+      --green: #23685e;
+      --blue: #315c8c;
+      --rust: #b75c3b;
+      --amber: #d9aa4b;
+      --white: #ffffff;
+      --shadow: 0 20px 60px rgba(24, 33, 43, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 88px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .skip {
+      position: absolute;
+      left: 16px;
+      top: -80px;
+      z-index: 20;
+      padding: 10px 14px;
+      color: var(--white);
+      background: var(--ink);
+      border-radius: 6px;
+      transition: top 0.2s ease;
+    }
+
+    .skip:focus {
+      top: 12px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(222, 215, 202, 0.86);
+      background: rgba(255, 253, 248, 0.92);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 72px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 160px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: var(--paper);
+      background: var(--ink);
+      font-size: 14px;
+      box-shadow: 0 10px 24px rgba(24, 33, 43, 0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--green);
+      background: #e7f2ee;
+      outline: none;
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 72px);
+      display: grid;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(130deg, rgba(245, 242, 235, 0.95), rgba(255, 253, 248, 0.86) 48%, rgba(230, 240, 237, 0.95)),
+        linear-gradient(90deg, rgba(35, 104, 94, 0.12), transparent 35%, rgba(183, 92, 59, 0.12));
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      align-items: center;
+      gap: clamp(32px, 6vw, 78px);
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 70px 0 86px;
+    }
+
+    .kicker {
+      margin: 0 0 18px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 740px;
+      font-size: clamp(48px, 8vw, 106px);
+      line-height: 0.96;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 28px 0 0;
+      color: #33404c;
+      font-size: clamp(18px, 2.2vw, 23px);
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .cta-row,
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .button.dark {
+      color: var(--white);
+      background: var(--ink);
+      box-shadow: 0 14px 30px rgba(24, 33, 43, 0.18);
+    }
+
+    .button.light {
+      background: rgba(255, 253, 248, 0.7);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .profile-panel {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      padding: 28px;
+      border: 1px solid rgba(222, 215, 202, 0.9);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, 0.86);
+      box-shadow: var(--shadow);
+    }
+
+    .profile-panel::before {
+      content: "";
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 0.72;
+      border-radius: 8px;
+      background:
+        linear-gradient(145deg, rgba(49, 92, 140, 0.15), rgba(35, 104, 94, 0.18)),
+        repeating-linear-gradient(135deg, rgba(24, 33, 43, 0.08) 0 1px, transparent 1px 20px);
+    }
+
+    .profile-title {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 900;
+    }
+
+    .profile-meta {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .section {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 84px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr);
+      gap: 44px;
+      align-items: start;
+      margin-bottom: 32px;
+    }
+
+    .section-index {
+      color: var(--rust);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4.8vw, 52px);
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.75;
+      font-weight: 500;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .quick-card {
+      min-height: 150px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .quick-card strong {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--green);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .quick-card p {
+      margin: 0;
+      color: #33404c;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+
+    .band {
+      border-block: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid rgba(24, 33, 43, 0.16);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 28px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(24, 33, 43, 0.12);
+    }
+
+    .date {
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .timeline-item h3,
+    .publication h3 {
+      margin: 0 0 8px;
+      font-size: 21px;
+      line-height: 1.25;
+    }
+
+    .timeline-item p,
+    .publication p,
+    .award-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .publication-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .publication {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: start;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .tag {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--blue);
+      background: #e9f0f8;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .award-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .award-item {
+      padding: 22px;
+      border-left: 4px solid var(--amber);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .award-item strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--rust);
+      font-size: 14px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .project {
+      min-height: 180px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    .project small {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .project h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: 34px;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--ink);
+    }
+
+    .contact-panel h2 {
+      color: var(--white);
+    }
+
+    .contact-panel p {
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, 0.76);
+      line-height: 1.7;
+    }
+
+    .contact-panel .button {
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.55);
+    }
+
+    footer {
+      padding: 28px 16px 44px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero-inner,
+      .section-head,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .quick-grid,
+      .award-grid,
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .publication,
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .publication .button {
+        width: fit-content;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+      }
+
+      .nav-links a {
+        text-align: center;
+      }
+
+      .hero-inner,
+      .section {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .profile-panel,
+      .contact-panel {
+        padding: 22px;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="brand-mark">JL</span>
+        <span>Jihyeon Lee</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#publications">Publications</a>
+        <a href="#honors">Honors</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div>
+          <p class="kicker">KAIST GSCT · Visual Cognition Lab</p>
+          <h1 id="hero-title">Jihyeon Lee</h1>
+          <p class="hero-copy">
+            Ph.D. student at the Graduate School of Culture Technology, KAIST.
+            Her research explores HCI, VR/AR, 3D interaction, and spatial UI/UX,
+            with a focus on how people perceive and interact in immersive environments.
+          </p>
+          <div class="cta-row">
+            <a class="button dark" href="#publications">View Publications</a>
+            <a class="button light" href="mailto:jihyeon@kaist.ac.kr">jihyeon@kaist.ac.kr</a>
+          </div>
+        </div>
+
+        <aside class="profile-panel" aria-label="Profile summary">
+          <div>
+            <p class="profile-title">Researcher in immersive interaction and spatial experience.</p>
+            <div class="profile-meta">
+              <span>Advised by Prof. Jeongmi Lee</span>
+              <span>Visual Cognition Lab, KAIST</span>
+              <span>HCI · VR/AR · 3D Interaction · Spatial UI/UX</span>
+            </div>
+          </div>
+          <div class="link-row">
+            <a class="button light" href="https://vcl.kaist.ac.kr/">VCL</a>
+            <a class="button light" href="https://ct.kaist.ac.kr/">GSCT</a>
+            <a class="button light" href="https://www.linkedin.com/in/jihyeon-lee-54465a261/">LinkedIn</a>
+            <a class="button light" href="https://www.researchgate.net/profile/Jihyeon-Lee-21">ResearchGate</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <span class="section-index">01 · About</span>
+        <div>
+          <h2 id="about-title">Human-centered interfaces for spatial computing.</h2>
+          <p class="section-copy">
+            Jihyeon Lee is a Ph.D. student in the Graduate School of Culture Technology at KAIST,
+            working in the Visual Cognition Lab. Her work spans controller-free 3D environments,
+            gaze and microgesture interaction, VR teleportation, AR sticky notes, and multimodal
+            interfaces for augmented reality.
+          </p>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <article class="quick-card">
+          <strong>Current</strong>
+          <p>Ph.D. Student, KAIST Graduate School of Culture Technology</p>
+        </article>
+        <article class="quick-card">
+          <strong>Lab</strong>
+          <p>Visual Cognition Lab, advised by Prof. Jeongmi Lee</p>
+        </article>
+        <article class="quick-card">
+          <strong>Focus</strong>
+          <p>HCI, VR/AR, 3D interaction, spatial UI/UX</p>
+        </article>
+        <article class="quick-card">
+          <strong>Email</strong>
+          <p><a href="mailto:jihyeon@kaist.ac.kr">jihyeon@kaist.ac.kr</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band" id="education" aria-labelledby="education-title">
+      <div class="section">
+        <div class="section-head">
+          <span class="section-index">02 · Education</span>
+          <div>
+            <h2 id="education-title">Education</h2>
+            <p class="section-copy">Academic path across culture technology and computer science.</p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <span class="date">2024.03 - Present</span>
+            <div>
+              <h3>Ph.D. Student, KAIST</h3>
+              <p>Graduate School of Culture Technology</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2022.03 - 2024.02</span>
+            <div>
+              <h3>M.S., KAIST</h3>
+              <p>Graduate School of Culture Technology</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2016.03 - 2022.02</span>
+            <div>
+              <h3>B.S., Chungbuk National University</h3>
+              <p>Computer Science & Engineering</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publications" aria-labelledby="publications-title">
+      <div class="section-head">
+        <span class="section-index">03 · Publications</span>
+        <div>
+          <h2 id="publications-title">Publications</h2>
+          <p class="section-copy">Selected papers and posters from TVCG, ISMAR, IEEE VR, IEEE LCN, and domestic conferences.</p>
+        </div>
+      </div>
+
+      <div class="publication-list">
+        <article class="publication">
+          <div>
+            <span class="tag">TVCG · Honorable Mention</span>
+            <h3>Facilitating the Exploration of Linearly Aligned Objects in Controller-Free 3D Environment with Gaze and Microgestures</h3>
+            <p>Lee, J., Kim, J., & Lee, J. IEEE Transactions on Visualization and Computer Graphics.</p>
+          </div>
+          <a class="button light" href="https://ieeexplore.ieee.org/document/11192746/">Paper</a>
+        </article>
+
+        <article class="publication">
+          <div>
+            <span class="tag">ISMAR 2023 Poster</span>
+            <h3>Comparison of Virtual Reality Teleportation Targeting Method Performance depending on the Teleport Distance</h3>
+            <p>Lee, J., Kim, J., & Lee, J.</p>
+          </div>
+          <a class="button light" href="http://dx.doi.org/10.1109/ISMAR-Adjunct60411.2023.00160">Paper</a>
+        </article>
+
+        <article class="publication">
+          <div>
+            <span class="tag">IEEE VR 2023 Poster</span>
+            <h3>Memo:me, an AR Sticky Note With Priority-Based Color Transition and On-Time Reminder</h3>
+            <p>Song, E.*, Baeck, M.*, Lee, J.*, Oh, S. Y., Kim, D., Woo, W., ... & Yoon, S. H.</p>
+          </div>
+          <a class="button light" href="http://dx.doi.org/10.1109/VRW58643.2023.00126">Paper</a>
+        </article>
+
+        <article class="publication">
+          <div>
+            <span class="tag">KSC 2023</span>
+            <h3>Wearable Augmented Reality-based Multi Modal Interface Design for Information searching in Multi-user Communication Scenario</h3>
+            <p>Minju Beack*, Jihyeon Lee*, & Woontack Woo. Domestic Conference.</p>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div>
+            <span class="tag">HCI Korea 2023</span>
+            <h3>MY MUSE: Interactive Museum Education with Museum Educator in Metaverse Virtual Museum</h3>
+            <p>Jieon Du*, Jihyeon Lee*, Kwan Yun*, & Woontack Woo. Domestic Conference.</p>
+          </div>
+          <a class="button light" href="http://dx.doi.org/10.1109/ISMAR-Adjunct60411.2023.00128">Paper</a>
+        </article>
+
+        <article class="publication">
+          <div>
+            <span class="tag">IEEE LCN 2022</span>
+            <h3>AI-aided Hidden Camera Detection and Localization based on Raw IoT Network Traffic</h3>
+            <p>Lee, J., Seo, S., Yang, T., & Park, S.</p>
+          </div>
+          <a class="button light" href="http://dx.doi.org/10.1109/LCN53696.2022.9843203">Paper</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="band" id="honors" aria-labelledby="honors-title">
+      <div class="section">
+        <div class="section-head">
+          <span class="section-index">04 · Honors</span>
+          <div>
+            <h2 id="honors-title">Honors and Scholarships</h2>
+            <p class="section-copy">Recognition across research, challenge programs, and academic workshops.</p>
+          </div>
+        </div>
+
+        <div class="award-grid">
+          <article class="award-item">
+            <strong>2025</strong>
+            <p>ISMAR2025, Honorable Mention for Best Paper Award (Top 3%)</p>
+          </article>
+          <article class="award-item">
+            <strong>2024</strong>
+            <p>대한뇌파신경생리학회 제 6회 뇌파스쿨 EEG 워크숍 우수상</p>
+          </article>
+          <article class="award-item">
+            <strong>2023</strong>
+            <p>KIRD 2023 Real Challenge Excellence Award</p>
+          </article>
+          <article class="award-item">
+            <strong>2023</strong>
+            <p>산업부, KEA, 가상증강현실전문인력양성사업, 우수 연구상</p>
+          </article>
+          <article class="award-item">
+            <strong>2022</strong>
+            <p>SK mySUNI Creative Challenge 2022, The Excellence Award (Demo/Poster)</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="section-head">
+        <span class="section-index">05 · Projects</span>
+        <div>
+          <h2 id="projects-title">Projects</h2>
+          <p class="section-copy">Course and research projects focused on augmented and virtual reality experiences.</p>
+        </div>
+      </div>
+
+      <div class="project-grid">
+        <article class="project">
+          <small>Fall 2022 · GCT700 Augmented Reality Project</small>
+          <h3>MY MUSE</h3>
+          <p>Interactive museum education with a museum educator in a metaverse virtual museum.</p>
+        </article>
+        <article class="project">
+          <small>Spring 2022 · CTP445 Augmented Reality</small>
+          <h3>Memo:me</h3>
+          <p>An AR sticky note with priority-based color transition and on-time reminder.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band" id="experience" aria-labelledby="experience-title">
+      <div class="section">
+        <div class="section-head">
+          <span class="section-index">06 · Experience</span>
+          <div>
+            <h2 id="experience-title">Creative Experiences</h2>
+            <p class="section-copy">Teaching, mentoring, and volunteer work across university and international programs.</p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <span class="date">2025 Fall</span>
+            <div><h3>TA in Cognition and Emotion</h3><p>KAIST</p></div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2025 Spring</span>
+            <div><h3>TA in Da Vinch Lab</h3><p>KAIST</p></div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2024 Spring, Fall</span>
+            <div><h3>TA in CTPress</h3><p>KAIST</p></div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2021 Fall</span>
+            <div><h3>TA in Data Structure and Algorithm</h3><p>Chungbuk National University</p></div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2021 Spring</span>
+            <div><h3>TA in Start-up Planning</h3><p>Chungbuk National University</p></div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2020.07 - 2021.01</span>
+            <div><h3>Mentor</h3><p>Chungbuk National University Science Dreamer Class 2020</p></div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2020.08</span>
+            <div><h3>Education Assistant</h3><p>Chung-cheong Artificial Intelligence Education Program</p></div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2020.01 - 2020.02</span>
+            <div><h3>Education Volunteer</h3><p>South Korea-Guatemala Education Volunteer Group, Chungbuk National University</p></div>
+          </article>
+          <article class="timeline-item">
+            <span class="date">2018.07 - 2020.08</span>
+            <div><h3>ICT Volunteer</h3><p>World Friends ICT Volunteer Program / KT Giga Island Bangladesh, World Friends Korea</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="contact-panel">
+        <div>
+          <h2 id="contact-title">Contact</h2>
+          <p>For research conversations, collaboration, or profile updates, reach out by email.</p>
+        </div>
+        <a class="button" href="mailto:jihyeon@kaist.ac.kr">Send Email</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Jihyeon Lee. Built as a static GitHub Pages-ready profile.
+  </footer>
+</body>
+</html>
