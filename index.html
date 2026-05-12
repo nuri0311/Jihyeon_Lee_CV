@@ -220,15 +220,11 @@
       box-shadow: var(--shadow);
     }
 
-    .profile-panel::before {
-      content: "";
-      display: block;
+    .profile-photo {
       width: 100%;
       aspect-ratio: 1 / 0.72;
+      object-fit: cover;
       border-radius: 8px;
-      background:
-        linear-gradient(145deg, rgba(49, 92, 140, 0.15), rgba(35, 104, 94, 0.18)),
-        repeating-linear-gradient(135deg, rgba(24, 33, 43, 0.08) 0 1px, transparent 1px 20px);
     }
 
     .profile-title {
@@ -566,6 +562,7 @@
 
         <aside class="profile-panel" aria-label="Profile summary">
           <div>
+            <img class="profile-photo" src="Images/profile_jihyeon.jpg" alt="Jihyeon Lee profile photo">
             <p class="profile-title">Researcher in immersive interaction and spatial experience.</p>
             <div class="profile-meta">
               <span>Advised by Prof. Jeongmi Lee</span>
